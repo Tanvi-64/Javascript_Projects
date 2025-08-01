@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Registration Form</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #43cea2, #185a9d);
+
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+    .page-title {
+      width: 100%;
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 20px;
+      font-size: 32px;
+      font-weight: bold;
+      color: 	#185a9d;
+    }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+    h2 {
+      text-align: center;
+      color: #2d6a4f;
+      margin-bottom: 30px;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      color: #333;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 15px;
+      transition: border 0.3s ease, box-shadow 0.3s ease;
+    }
+    input:focus {
+      border-color: #52b788;
+      box-shadow: 0 0 5px rgba(82, 183, 136, 0.4);
+      outline: none;
+    }
+    .gender-options {
+      margin-bottom: 20px;
+    }
+    .gender-options label {
+      display: inline-block;
+      margin-right: 15px;
+      font-weight: normal;
+      font-size: 14px;
+    }
+    .terms {
+      margin-bottom: 20px;
+      font-size: 13px;
+    }
+    input[type="submit"] {
+      background-color: 	#43cea2;
+      color:#ffffff;
+      padding: 12px;
+      width: 100%;
+      border-color:#185a9d;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    input[type="submit"]:hover {
+      background-color:#2ba78b;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+    }
+    .footer a {
+      color: #40916c;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    /* Error message styling */
+    .error-msg {
+      color: #e63946;
+      font-size: 12px;
+      margin-bottom: 10px;
+      display: block;
+      min-height: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Registration Form</h2>
+    <form action="/submit" method="post" onsubmit="return validateForm();">
+      <label for="name">First Name</label>
+      <input type="text" id="name" name="name" required />
+      <span class="error-msg" id="name-error"></span>
+
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" required />
+      <span class="error-msg" id="email-error"></span>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required />
+      <span class="error-msg" id="password-error"></span>
+
+      <label for="age">Age</label>
+      <input type="number" id="age" name="age" required />
+      <span class="error-msg" id="age-error"></span>
+
+      <div class="terms">
+        <label>
+          <input type="checkbox" id="terms" name="terms" required />
+          I accept the <a href="#">terms and conditions</a>.
+        </label>
+        <span class="error-msg" id="terms-error"></span>
+      </div>
+
+      <input type="submit" value="Register" />
+    </form>
+    <div class="footer">
+      Already have an account? <a href="/login">Login here</a>
+    </div>
+  </div>
+<script>
+function validateForm() {
+    let isValid = true;
+
+    // Get values
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const age = document.getElementById('age').value.trim();
+    const terms = document.getElementById('terms').checked;
+
+    // Error fields
+    const nameError = document.getElementById('name-error');
+    const emailError = document.getElementById('email-error');
+    const passwordError = document.getElementById('password-error');
+    const ageError = document.getElementById('age-error');
+    const termsError = document.getElementById('terms-error');
+
+    // Reset errors
+    nameError.textContent = '';
+    emailError.textContent = '';
+    passwordError.textContent = '';
+    ageError.textContent = '';
+    termsError.textContent = '';
+
+    // Name validation
+    if (name === '') {
+        nameError.textContent = 'Name is required.';
+        isValid = false;
+    }
+    // Check if name contains only letters and spaces
+  const nameRegex = /^[A-Za-z\s]+$/;
+  if (!nameRegex.test(name)) {
+    error.textContent = "Name can only contain letters and spaces.";
+    return false;
+  }
+
+    // Email validation
+    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,}$/i;
+    if (!emailPattern.test(email)) {
+        emailError.textContent = 'Please enter a valid email address.';
+        isValid = false;
+    }
+
+
+    // Password validation
+    if (password.length < 6) {
+        passwordError.textContent = 'Password must be at least 6 characters.';
+        isValid = false;
+    }
+
+    // Age validation
+    const ageNum = parseInt(age);
+    if (isNaN(ageNum) || ageNum <= 0 || ageNum >100) {
+        ageError.textContent = 'Enter a valid age between 1 and 120.';
+        isValid = false;
+    }
+
+    // Terms checkbox
+    if (!terms) {
+        termsError.textContent = 'You must accept the terms and conditions.';
+        isValid = false;
+    }
+
+    return isValid;
+}
+</script>
+</body>
+</html>
