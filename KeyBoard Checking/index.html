@@ -1,0 +1,82 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Keyboard Checker</title>
+  <style>
+    body {
+      height: 100vh;
+      background-color: #1e1e1e;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    #insert {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    table {
+      border: 1px solid #aaa;
+      border-collapse: collapse;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      margin: 0;
+      min-width: 135px;
+    }
+    th, td {
+      border: 1px solid #aaa;
+      padding: 4px 10px;
+      font-size: 13px;
+      text-align: center;
+    }
+    th {
+      background:#333;
+      color:white;
+    }
+    td {
+      background: #222;
+      color: #fff;
+    }
+    /* Remove the magic message after the first key press */
+    .key {
+      font-size: 15px;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="project">
+    <div id="insert">
+      <div class="key">Press any key and watch the magic!</div>
+      <div id="table-container"></div>
+    </div>
+  </div>
+  <script>
+    const myproject = document.getElementById('table-container');
+    window.addEventListener('keydown', (e) => {
+       myproject.innerHTML = `
+        <table>
+          <tr>
+            <th>Key</th>
+            <th>KeyCode</th>
+            <th>Code</th>
+          </tr>
+          <tr>
+            <td>${e.key === ' ' ? 'Space' : e.key}</td>
+            <td>${e.keyCode}</td>
+            <td>${e.code}</td>
+          </tr>
+        </table>
+      `;
+    });
+  </script>
+</body>
+</html>
